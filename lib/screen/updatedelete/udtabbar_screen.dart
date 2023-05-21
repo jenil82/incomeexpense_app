@@ -29,8 +29,8 @@ class _UDTabbarScreenState extends State<UDTabbarScreen> {
             title: Obx(
                   () => Text(
                 homeController.udindex.value == 0
-                    ? "Update Income"
-                    : "Update Expense",
+                    ? "Income"
+                    : "Expense",
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class _UDTabbarScreenState extends State<UDTabbarScreen> {
               ),
             ],
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.black,
           body: Column(
             children: [
               SizedBox(
@@ -79,7 +79,7 @@ class _UDTabbarScreenState extends State<UDTabbarScreen> {
                   borderRadius: BorderRadius.circular(12),
                   color: Colors.black,
                 ),
-                indicatorColor: Colors.black,
+                indicatorColor: Colors.white,
                 tabs: [
                   SizedBox(
                     height: 60,
@@ -91,7 +91,7 @@ class _UDTabbarScreenState extends State<UDTabbarScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.black,
+                            color: Colors.white,
                             width: 2,
                           ),
                         ),
@@ -110,7 +110,7 @@ class _UDTabbarScreenState extends State<UDTabbarScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.black,
+                            color: Colors.white,
                             width: 2,
                           ),
                         ),

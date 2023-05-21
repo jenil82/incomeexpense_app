@@ -188,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               "₹ Income",
                                               style: TextStyle(
                                                 color: Colors.green,
-                                                fontSize: 30,
+                                                fontSize: 20,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
@@ -290,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 "₹ Expense",
                                                 style: TextStyle(
                                                   color: Colors.red,
-                                                  fontSize: 30,
+                                                  fontSize: 20,
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
@@ -323,22 +323,10 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.only(left: 10),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.history,
-                    size: 22,
-                    color: Colors.black,
-                  ),
                   SizedBox(
                     width: 6,
                   ),
-                  Text(
-                    "Recent Transaction !",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
+
                 ],
               ),
             ),
@@ -429,10 +417,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                           SizedBox(
                                             width: 5,
                                           ),
-                                          Icon(
-                                            Icons.fiber_manual_record,
-                                            color: Colors.black54,
-                                            size: 10,
+                                          Text(
+                                            "=>",
+                                            style: TextStyle(
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15,
+                                            ),
                                           ),
                                           SizedBox(
                                             width: 5,
@@ -460,7 +451,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ['status'] ==
                                             1
                                             ? Text(
-                                          "₹ ${homeController.dataList.value[index]['amount']} INR",
+                                          "₹ ${homeController.dataList.value[index]['amount']} ",
                                           style: TextStyle(
                                             color: Colors.red,
                                             fontWeight: FontWeight.bold,
@@ -468,7 +459,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         )
                                             : Text(
-                                          "₹ ${homeController.dataList.value[index]['amount']} INR",
+                                          "₹ ${homeController.dataList.value[index]['amount']}",
                                           style: TextStyle(
                                             color: Colors.green,
                                             fontWeight: FontWeight.bold,
