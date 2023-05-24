@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:incomeexpense_app/screen/home/controller/home_controller.dart';
+
+import '../controller/controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,21 +11,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeController homeController = Get.put(
-    HomeController(),
+  incomController homeController = Get.put(
+    incomController(),
   );
 
   @override
   void initState() {
     super.initState();
     homeController.readData();
+    homeController.calculateIncomeBalance();
+    homeController.calculateExpenseBalance();
+    // homeController.calculateTotalBalance();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -32,11 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 300,
               width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(0),
-                  bottomRight: Radius.circular(00),
-                ),
-                color: Colors.white54,
+                color: Colors.black,
               ),
               child: Padding(
                 padding: EdgeInsets.all(10),
@@ -47,40 +47,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          "incaome",
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(width: 5,),
-
-                        Text(
-                          "-",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(width: 5,),
-                        Text(
-                          "incaome",
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Spacer(),
                         IconButton(
                           onPressed: () {
                             Get.toNamed('transaction_screen');
                           },
                           icon: Icon(Icons.history),
-                          color: Colors.black,
+                          color: Colors.white,
                           iconSize: 30,
                         ),
                       ],
@@ -88,115 +60,99 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    Obx(
-                          () =>  Text(
-                        "₹ ${homeController.totalBalance.value} total",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
                     Expanded(
                       child: Row(
                         children: [
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.only(
-                                left: 10,
-                                top: 10,
-                                bottom: 10,
+                                left: 15,
+                                top: 20,
+                                bottom: 25,
                                 right: 10,
                               ),
-                              child: Container(
-                                height: 200,
-                                width: 300,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  color: Colors.black,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  top: 25,
+                                  bottom: 25,
+                                  left: 15,
+                                  right: 15,
                                 ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                    top: 25,
-                                    bottom: 25,
-                                    left: 15,
-                                    right: 15,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.file_download_outlined,
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          "Income",
+                                          style: TextStyle(
                                             color: Colors.green,
-                                            size: 24,
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.w500,
                                           ),
-                                          SizedBox(
-                                            width: 2,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: 4,
+                                      ),
+                                      child: Obx(
+                                            () => homeController
+                                            .incomeDataTotal.isEmpty
+                                            ? Text(
+                                          "₹ ${homeController.zero.value}",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
                                           ),
-                                          Text(
-                                            "Income",
+                                        )
+                                            : Text(
+                                          "₹ ${homeController.incomeDataTotal.value[0]['total_income']}",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 1,
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Expanded(
+                                      child: InkWell(
+                                        onTap: () {
+                                          homeController.changeIIndex(0);
+                                          Get.toNamed(
+                                            'itabbar_screen',
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(5),
+                                          child: Text(
+                                            "+ Income",
                                             style: TextStyle(
                                               color: Colors.green,
-                                              fontSize: 18,
+                                              fontSize: 16,
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          left: 4,
-                                        ),
-                                        child: Obx(
-                                              () => Text(
-                                            "₹ ${homeController.totalIncome.value} total",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 3,
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Expanded(
-                                        child: InkWell(
-                                          onTap: () {
-                                            homeController.changeIIndex(0);
-                                            Get.toNamed(
-                                              'itabbar_screen',
-                                            );
-                                          },
-                                          child: Padding(
-                                            padding: EdgeInsets.all(5),
-                                            child: Text(
-                                              "₹ Income",
-                                              style: TextStyle(
-                                                color: Colors.green,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -204,102 +160,95 @@ class _HomeScreenState extends State<HomeScreen> {
                           Expanded(
                             child: Padding(
                               padding: EdgeInsets.only(
-                                right: 10,
-                                top: 10,
-                                bottom: 10,
+                                right: 15,
+                                top: 20,
+                                bottom: 25,
                                 left: 10,
                               ),
-                              child: Container(
-                                height:200,
-                                width: 300,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  color: Colors.white,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  top: 25,
+                                  bottom: 25,
+                                  left: 15,
+                                  right: 15,
                                 ),
-                                child: Container(
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    color: Colors.black,
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                      top: 25,
-                                      bottom: 25,
-                                      left: 15,
-                                      right: 15,
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
                                       children: [
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.file_upload_outlined,
-                                              color: Colors.red,
-                                              size: 24,
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              "Expense",
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
                                         SizedBox(
-                                          height: 10,
+                                          width: 5,
                                         ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                            left: 4,
-                                          ),
-                                          child: Text(
-                                            "₹ ${homeController.totalExpense.value} total",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 3,
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Expanded(
-                                          child: InkWell(
-                                            onTap: () {
-                                              homeController.changeIIndex(1);
-                                              Get.toNamed(
-                                                'itabbar_screen',
-                                              );
-                                            },
-                                            child: Padding(
-                                              padding: EdgeInsets.all(5),
-                                              child: Text(
-                                                "₹ Expense",
-                                                style: TextStyle(
-                                                  color: Colors.red,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ),
+                                        Text(
+                                          "Expense",
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: 4,
+                                      ),
+                                      child: Obx(
+                                            () => homeController
+                                            .expenseDataTotal.isEmpty
+                                            ? Text(
+                                          "₹ ${homeController.zero.value}",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 22,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                          ),
+                                        )
+                                            : Text(
+                                          "₹ ${homeController.expenseDataTotal.value[0]['total_expense']} ",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 22,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Expanded(
+                                      child: InkWell(
+                                        onTap: () {
+                                          homeController.changeIIndex(1);
+                                          Get.toNamed(
+                                            'itabbar_screen',
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(2),
+                                          child: Text(
+                                            "- Expense",
+                                            style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -312,26 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(
-              height: 5,
-            ),
-            Container(
-            height: 5,
-              width: double.infinity,
-              color: Colors.black,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 6,
-                  ),
-
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 8,
+              height: 15,
             ),
             Expanded(
               child: Container(
@@ -349,8 +279,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         child: InkWell(
                           onTap: () {
+                            homeController.udId.value =
+                            homeController.dataList[index]['id'];
                             homeController.changeUDIndex(
                                 homeController.dataList[index]['status']);
+                            homeController.oldData(
+                              id: homeController.udId.value,
+                            );
                             Get.toNamed(
                               'udtabbar_screen',
                               arguments: index,
@@ -361,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: double.infinity,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 15),
@@ -375,12 +310,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ['status'] ==
                                         1
                                         ? Icon(
-                                      Icons.file_upload_outlined,
+                                      Icons.import_export,
                                       color: Colors.red,
                                       size: 35,
                                     )
                                         : Icon(
-                                      Icons.file_download_outlined,
+                                      Icons.import_export,
                                       color: Colors.green,
                                       size: 35,
                                     ),
@@ -396,7 +331,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Text(
                                         "${homeController.dataList.value[index]['category']}",
                                         style: TextStyle(
-                                          color: Colors.black,
+                                          color: Colors.white,
                                           fontWeight: FontWeight.w700,
                                           fontSize: 18,
                                         ),
@@ -409,21 +344,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Text(
                                             "${homeController.dataList.value[index]['paymentmethod']}",
                                             style: TextStyle(
-                                              color: Colors.black,
+                                              color: Colors.white,
                                               fontWeight: FontWeight.w500,
                                               fontSize: 15,
                                             ),
                                           ),
                                           SizedBox(
                                             width: 5,
-                                          ),
-                                          Text(
-                                            "=>",
-                                            style: TextStyle(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15,
-                                            ),
                                           ),
                                           SizedBox(
                                             width: 5,
@@ -431,7 +358,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Text(
                                             "${homeController.dataList.value[index]['date']}",
                                             style: TextStyle(
-                                              color: Colors.black,
+                                              color: Colors.white,
                                               fontWeight: FontWeight.w500,
                                               fontSize: 15,
                                             ),
@@ -451,7 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ['status'] ==
                                             1
                                             ? Text(
-                                          "₹ ${homeController.dataList.value[index]['amount']} ",
+                                          "₹ ${homeController.dataList.value[index]['amount']} INR",
                                           style: TextStyle(
                                             color: Colors.red,
                                             fontWeight: FontWeight.bold,
@@ -459,7 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         )
                                             : Text(
-                                          "₹ ${homeController.dataList.value[index]['amount']}",
+                                          "₹ ${homeController.dataList.value[index]['amount']} INR",
                                           style: TextStyle(
                                             color: Colors.green,
                                             fontWeight: FontWeight.bold,

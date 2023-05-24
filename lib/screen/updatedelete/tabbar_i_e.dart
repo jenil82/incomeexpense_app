@@ -1,36 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../home/controller/home_controller.dart';
-import 'udexpense_screen.dart';
-import 'udincome_screen.dart';
+import '../home/controller/controller.dart';
+import 'i_ubdeit_screen.dart';
+import 'e_ubdeit.dart';
 
-class UDTabbarScreen extends StatefulWidget {
-  const UDTabbarScreen({Key? key}) : super(key: key);
+class abbarScreen extends StatefulWidget {
+  const abbarScreen({Key? key}) : super(key: key);
 
   @override
-  State<UDTabbarScreen> createState() => _UDTabbarScreenState();
+  State<abbarScreen> createState() => _abbarScreenState();
 }
 
-class _UDTabbarScreenState extends State<UDTabbarScreen> {
-  HomeController homeController = Get.put(
-    HomeController(),
+class _abbarScreenState extends State<abbarScreen> {
+  incomController homeController = Get.put(
+    incomController(),
   );
 
   @override
   Widget build(BuildContext context) {
-    var index = Get.arguments;
     return DefaultTabController(
       length: 2,
-      initialIndex: homeController.udindex.value,
+      initialIndex: homeController.udIndex.value,
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black,
             title: Obx(
                   () => Text(
-                homeController.udindex.value == 0
-                    ? "Income"
-                    : "Expense",
+                homeController.udIndex.value == 0
+                    ? " Income"
+                    : " Expense",
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -42,8 +41,12 @@ class _UDTabbarScreenState extends State<UDTabbarScreen> {
                 padding: EdgeInsets.only(right: 18),
                 child: InkWell(
                   onTap: () {
-                    var id = homeController.dataList[index]['id'];
-                    homeController.deleteData(id);
+                    homeController.deleteData(
+                      homeController.udId.value,
+                    );
+                    homeController.calculateIncomeBalance();
+                    homeController.calculateExpenseBalance();
+                    // homeController.calculateTotalBalance();
                     Get.back();
                   },
                   child: Icon(
@@ -54,13 +57,16 @@ class _UDTabbarScreenState extends State<UDTabbarScreen> {
               ),
             ],
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.white,
           body: Column(
             children: [
               SizedBox(
                 height: 15,
               ),
               TabBar(
+                onTap: (value) {
+                  homeController.udIndex.value = value;
+                },
                 indicatorPadding: EdgeInsets.only(
                   left: 20,
                   right: 20,
@@ -79,7 +85,7 @@ class _UDTabbarScreenState extends State<UDTabbarScreen> {
                   borderRadius: BorderRadius.circular(12),
                   color: Colors.black,
                 ),
-                indicatorColor: Colors.white,
+                indicatorColor: Colors.black,
                 tabs: [
                   SizedBox(
                     height: 60,
@@ -91,7 +97,7 @@ class _UDTabbarScreenState extends State<UDTabbarScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.white,
+                            color: Colors.black,
                             width: 2,
                           ),
                         ),
@@ -110,7 +116,7 @@ class _UDTabbarScreenState extends State<UDTabbarScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.white,
+                            color: Colors.black,
                             width: 2,
                           ),
                         ),
@@ -127,8 +133,8 @@ class _UDTabbarScreenState extends State<UDTabbarScreen> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    UDIncomeScreen(),
-                    UDExpenseScreen(),
+                    income_screen(),
+                    expnsescreen(),
                   ],
                 ),
               ),

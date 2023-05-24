@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:incomeexpense_app/screen/home/controller/home_controller.dart';
-import 'iexpense_screen.dart';
-import 'iincome_screen.dart';
+import '../home/controller/controller.dart';
+import 'i_screen.dart';
+import 'E_screen.dart';
 
 class ITabbarScreen extends StatefulWidget {
   const ITabbarScreen({Key? key}) : super(key: key);
@@ -12,24 +12,25 @@ class ITabbarScreen extends StatefulWidget {
 }
 
 class _ITabbarScreenState extends State<ITabbarScreen> {
-  HomeController homeController = Get.put(
-    HomeController(),
+  incomController homeController = Get.put(
+    incomController(),
   );
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      initialIndex: homeController.iindex.value,
+      initialIndex: homeController.iIndex.value,
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.black,
+            centerTitle: true,
+            backgroundColor: Colors.lightBlue,
             title: Obx(
                   () => Text(
-                homeController.iindex.value == 0
-                    ? "Insert Income"
-                    : "Insert Expense",
+                homeController.iIndex.value == 0
+                    ? "Income"
+                    : " Expense",
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -37,13 +38,16 @@ class _ITabbarScreenState extends State<ITabbarScreen> {
               ),
             ),
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.lightBlue,
           body: Column(
             children: [
               SizedBox(
                 height: 15,
               ),
               TabBar(
+                onTap: (value) {
+                  homeController.iIndex.value = value;
+                },
                 indicatorPadding: EdgeInsets.only(
                   left: 20,
                   right: 20,
@@ -59,8 +63,8 @@ class _ITabbarScreenState extends State<ITabbarScreen> {
                   fontSize: 20,
                 ),
                 indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(0),
+                  color: Colors.lightBlue,
                 ),
                 indicatorColor: Colors.black,
                 tabs: [
@@ -72,7 +76,7 @@ class _ITabbarScreenState extends State<ITabbarScreen> {
                         height: 60,
                         width: 180,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(0),
                           border: Border.all(
                             color: Colors.white,
                             width: 2,
@@ -91,7 +95,7 @@ class _ITabbarScreenState extends State<ITabbarScreen> {
                         height: 60,
                         width: 180,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(0),
                           border: Border.all(
                             color: Colors.white,
                             width: 2,
@@ -110,8 +114,8 @@ class _ITabbarScreenState extends State<ITabbarScreen> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    IIncomeScreen(),
-                    IExpenseScreen(),
+                    i_screen(),
+                    expernsescreen(),
                   ],
                 ),
               ),

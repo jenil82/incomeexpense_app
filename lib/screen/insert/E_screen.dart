@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:incomeexpense_app/screen/home/controller/home_controller.dart';
-import 'package:incomeexpense_app/utils/db_helper.dart';
 
+import '../../utils/db_helper.dart';
+import '../home/controller/controller.dart';
 
-class IIncomeScreen extends StatefulWidget {
-  const IIncomeScreen({Key? key}) : super(key: key);
+class i_screen extends StatefulWidget {
+  const i_screen({Key? key}) : super(key: key);
 
   @override
-  State<IIncomeScreen> createState() => _IIncomeScreenState();
+  State<i_screen> createState() => _i_screenState();
 }
 
-class _IIncomeScreenState extends State<IIncomeScreen> {
-  HomeController homeController = Get.put(
-    HomeController(),
+class _i_screenState extends State<i_screen> {
+  incomController homeController = Get.put(
+    incomController(),
   );
 
   @override
   void initState() {
     super.initState();
     homeController.readData();
+    homeController.resetDate();
   }
 
   @override
@@ -28,7 +29,7 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
     TextEditingController notec = TextEditingController();
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.lightBlue,
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
@@ -38,16 +39,16 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           Text(
-                            "Date",
+                            " Date",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
@@ -55,7 +56,6 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                           SizedBox(
                             width: 5,
                           ),
-
                         ],
                       ),
                       SizedBox(
@@ -64,9 +64,9 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                       Container(
                         height: 61,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(0),
                           border: Border.all(
-                            color: Colors.white,
+                            color: Colors.black,
                             width: 1,
                           ),
                         ),
@@ -86,15 +86,15 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                                           Theme.of(context).copyWith(
                                             colorScheme:
                                             ColorScheme.light(
-                                              primary: Colors.white,
-                                              onPrimary: Colors.black,
-                                              onSurface: Colors.white,
+                                              primary: Colors.black,
+                                              onPrimary: Colors.white,
+                                              onSurface: Colors.black,
                                             ),
                                             textButtonTheme:
                                             TextButtonThemeData(
                                               style: TextButton.styleFrom(
                                                 foregroundColor: Colors
-                                                    .white, // button text color
+                                                    .black, // button text color
                                               ),
                                             ),
                                           ),
@@ -129,9 +129,9 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                       Row(
                         children: [
                           Text(
-                            "Amount",
+                            " Amount",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
@@ -146,10 +146,10 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                       ),
                       TextField(
                         controller: amountc,
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.black,
                         keyboardType: TextInputType.number,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
                         ),
@@ -160,27 +160,26 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                           prefixIcon: IconButton(
                             onPressed: () {},
                             icon: Icon(
-                              Icons.currency_exchange,
+                              Icons.currency_rupee,
                               color: Colors.white,
                               size: 25,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide(
-                              color: Colors.white,
+                              color: Colors.black,
                               width: 1,
                             ),
                           ),
-                          hintText: "Amount",
+                          hintText: "",
                           hintStyle: TextStyle(
-                            color: Colors.white54,
+                            color: Colors.white,
                             fontWeight: FontWeight.w500,
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(
-                              color: Colors.white,
+                              color: Colors.black,
                               width: 1,
                             ),
                           ),
@@ -189,20 +188,18 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 5,
-                ),
+
                 Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           Text(
-                            " Category",
+                            "Category",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
@@ -210,7 +207,6 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                           SizedBox(
                             width: 5,
                           ),
-
                         ],
                       ),
                       SizedBox(
@@ -230,33 +226,29 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                           onChanged: (value) {
                             homeController.selectedICategory.value = value!;
                           },
-                          icon: Icon(
-                            Icons.keyboard_arrow_down_outlined,
-                            color: Colors.white,
-                          ),
-                          dropdownColor: Colors.lightBlueAccent,
+                          dropdownColor: Colors.grey.shade300,
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(0),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 1,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(0),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 1,
                               ),
                             ),
                           ),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
                           ),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(0),
                         ),
                       ),
                       SizedBox(
@@ -267,7 +259,7 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                           Text(
                             "Payment",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
@@ -295,29 +287,25 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                             homeController.selectedIPaymentMethod.value =
                             value!;
                           },
-                          icon: Icon(
-                            Icons.keyboard_arrow_down_outlined,
-                            color: Colors.white,
-                          ),
-                          dropdownColor: Colors.lightBlueAccent,
+                          dropdownColor: Colors.grey.shade300,
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(0),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 1,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(0),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 1,
                               ),
                             ),
                           ),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
                           ),
@@ -328,9 +316,9 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                         height: 20,
                       ),
                       Text(
-                        "Note...",
+                        "Note",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
@@ -340,15 +328,15 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                       ),
                       TextField(
                         controller: notec,
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
                         ),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                           ),
                           prefixIcon: IconButton(
                             onPressed: () {},
@@ -359,21 +347,21 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide(
-                              color: Colors.white,
+                              color: Colors.black,
                               width: 1,
                             ),
                           ),
-                          hintText: "Note...",
+                          hintText: "",
                           hintStyle: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black54,
                             fontWeight: FontWeight.w500,
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide(
-                              color: Colors.white,
+                              color: Colors.black,
                               width: 1,
                             ),
                           ),
@@ -402,23 +390,19 @@ class _IIncomeScreenState extends State<IIncomeScreen> {
                       status: status,
                     );
                     homeController.readData();
+                    homeController.calculateIncomeBalance();
+                    // homeController.calculateTotalBalance();
+                    homeController.resetICategory();
+                    homeController.resetDate();
+                    homeController.resetIPaymentMethod();
                     Get.back();
                   },
-                  child: Container(
-                    height: 60,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Income",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 23,
-                      ),
+                  child: Text(
+                    " Income",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 23,
                     ),
                   ),
                 ),

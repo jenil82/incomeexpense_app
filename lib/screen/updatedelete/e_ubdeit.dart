@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:incomeexpense_app/screen/home/controller/home_controller.dart';
-import '../../../utils/db_helper.dart';
 
-class UDExpenseScreen extends StatefulWidget {
-  const UDExpenseScreen({Key? key}) : super(key: key);
+import '../../utils/db_helper.dart';
+import '../home/controller/controller.dart';
+
+class income_screen extends StatefulWidget {
+  const income_screen({Key? key}) : super(key: key);
 
   @override
-  State<UDExpenseScreen> createState() => _UDExpenseScreenState();
+  State<income_screen> createState() => _income_screenState();
 }
 
-class _UDExpenseScreenState extends State<UDExpenseScreen> {
-  HomeController homeController = Get.put(
-    HomeController(),
+class _income_screenState extends State<income_screen> {
+  incomController homeController = Get.put(
+    incomController(),
   );
 
   @override
@@ -23,11 +24,14 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController amountc = TextEditingController();
-    TextEditingController notec = TextEditingController();
+    TextEditingController amountc = TextEditingController(
+      text: "${homeController.oldDataList.value[0]['amount']}",
+    );
+    TextEditingController notec = TextEditingController(
+      text: "${homeController.oldDataList.value[0]['note']}",
+    );
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.black,
+      child: Scaffold(backgroundColor: Colors.lightBlue,
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
@@ -46,7 +50,7 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                           Text(
                             "Date",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
@@ -62,9 +66,9 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                       Container(
                         height: 61,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(0),
                           border: Border.all(
-                            color: Colors.white,
+                            color: Colors.black,
                             width: 1,
                           ),
                         ),
@@ -84,15 +88,15 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                                           Theme.of(context).copyWith(
                                             colorScheme:
                                             ColorScheme.light(
-                                              primary: Colors.white,
-                                              onPrimary: Colors.black,
-                                              onSurface: Colors.white,
+                                              primary: Colors.black,
+                                              onPrimary: Colors.white,
+                                              onSurface: Colors.black,
                                             ),
                                             textButtonTheme:
                                             TextButtonThemeData(
                                               style: TextButton.styleFrom(
                                                 foregroundColor: Colors
-                                                    .white, // button text color
+                                                    .black, // button text color
                                               ),
                                             ),
                                           ),
@@ -104,15 +108,15 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                               },
                               icon: Icon(
                                 Icons.calendar_month,
-                                color: Colors.white,
+                                color: Colors.black,
                                 size: 28,
                               ),
                             ),
                             Obx(
                                   () => Text(
-                                "${homeController.dateFind!.value.day}/0${homeController.dateFind!.value.month}/${homeController.dateFind!.value.year}",
+                                "${homeController.oldDataList.value[0]['date']}",
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18,
                                 ),
@@ -129,13 +133,10 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                           Text(
                             "Amount",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
-                          ),
-                          SizedBox(
-                            width: 1,
                           ),
                         ],
                       ),
@@ -144,41 +145,36 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                       ),
                       TextField(
                         controller: amountc,
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.black,
                         keyboardType: TextInputType.number,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
                         ),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                           ),
                           prefixIcon: IconButton(
                             onPressed: () {},
                             icon: Icon(
                               Icons.currency_rupee,
-                              color: Colors.white,
+                              color: Colors.black,
                               size: 25,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide(
-                              color: Colors.white,
+                              color: Colors.black,
                               width: 1,
                             ),
                           ),
-                          hintText: " Amount",
-                          hintStyle: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide(
-                              color: Colors.white,
+                              color: Colors.black,
                               width: 1,
                             ),
                           ),
@@ -200,7 +196,7 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                           Text(
                             "Category",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
@@ -215,8 +211,8 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                       ),
                       Obx(
                             () => DropdownButtonFormField(
-                          value: homeController.selectedECategory.value,
-                          items: homeController.eCategoryList
+                          value: homeController.selectedICategory.value,
+                          items: homeController.iCategoryList
                               .map(
                                 (element) => DropdownMenuItem(
                               child: Text(element),
@@ -225,35 +221,35 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                           )
                               .toList(),
                           onChanged: (value) {
-                            homeController.selectedECategory.value = value!;
+                            homeController.selectedICategory.value = value!;
                           },
                           icon: Icon(
                             Icons.keyboard_arrow_down_outlined,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
-                          dropdownColor: Colors.lightBlueAccent,
+                          dropdownColor: Colors.grey.shade300,
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(0),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 1,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(0),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 1,
                               ),
                             ),
                           ),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
                           ),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(0),
                         ),
                       ),
                       SizedBox(
@@ -262,15 +258,12 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                       Row(
                         children: [
                           Text(
-                            "Payment ",
+                            "Select Payment Method",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
-                          ),
-                          SizedBox(
-                            width: 5,
                           ),
                         ],
                       ),
@@ -279,8 +272,8 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                       ),
                       Obx(
                             () => DropdownButtonFormField(
-                          value: homeController.selectedEPaymentMethod.value,
-                          items: homeController.ePaymentMethodList
+                          value: homeController.selectedIPaymentMethod.value,
+                          items: homeController.iPaymentMethodList
                               .map(
                                 (element) => DropdownMenuItem(
                               child: Text(element),
@@ -289,36 +282,36 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                           )
                               .toList(),
                           onChanged: (value) {
-                            homeController.selectedEPaymentMethod.value =
+                            homeController.selectedIPaymentMethod.value =
                             value!;
                           },
                           icon: Icon(
                             Icons.keyboard_arrow_down_outlined,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
-                          dropdownColor: Colors.lightBlueAccent,
+                          dropdownColor: Colors.grey.shade300,
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(0),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 1,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(0),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 1,
                               ),
                             ),
                           ),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
                           ),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(0),
                         ),
                       ),
                       SizedBox(
@@ -327,7 +320,7 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                       Text(
                         "Note",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
@@ -337,40 +330,35 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                       ),
                       TextField(
                         controller: notec,
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
                         ),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                           ),
                           prefixIcon: IconButton(
                             onPressed: () {},
                             icon: Icon(
                               Icons.description,
-                              color: Colors.white,
+                              color: Colors.black,
                               size: 28,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide(
-                              color: Colors.white,
+                              color: Colors.black,
                               width: 1,
                             ),
                           ),
-                          hintText: "Note",
-                          hintStyle: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide(
-                              color: Colors.white,
+                              color: Colors.black,
                               width: 1,
                             ),
                           ),
@@ -384,39 +372,34 @@ class _UDExpenseScreenState extends State<UDExpenseScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    var c = homeController.selectedECategory.value;
-                    var p = homeController.selectedEPaymentMethod.value;
+                    var c = homeController.selectedICategory.value;
+                    var p = homeController.selectedIPaymentMethod.value;
                     var d =
                         "${homeController.dateFind!.value.day}/0${homeController.dateFind!.value.month}/${homeController.dateFind!.value.year}";
-                    var status = 1;
+                    var status = 0;
                     DbHelper dbHelper = DbHelper();
-                    dbHelper.insertData(
+                    dbHelper.updateData(
                       amount: amountc.text,
                       date: d,
                       category: c,
                       paymentmethod: p,
                       note: notec.text,
                       status: status,
+                      id: homeController.udId.value,
                     );
                     homeController.readData();
-
+                    homeController.calculateIncomeBalance();
+                    // homeController.calculateTotalBalance();
+                    homeController.resetICategory();
+                    homeController.resetIPaymentMethod();
                     Get.back();
                   },
-                  child: Container(
-                    height: 60,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Update",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 23,
-                      ),
+                  child: Text(
+                    "Update",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 23,
                     ),
                   ),
                 ),

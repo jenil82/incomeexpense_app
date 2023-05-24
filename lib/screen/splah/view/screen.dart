@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 5), () {
-      Get.toNamed('home_screen');
+      Get.toNamed('1');
     });
   }
 
@@ -23,16 +23,17 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
               SizedBox(
                 height: 1,
               ),
               Text(
-                "💲 income expenses",
+                "income - Expense",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 28,

@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../utils/db_helper.dart';
+import '../home/controller/controller.dart';
 
-import '../../utils/db_helper.dart';
-import '../home/controller/home_controller.dart';
-
-
-class UDIncomeScreen extends StatefulWidget {
-  const UDIncomeScreen({Key? key}) : super(key: key);
+class expernsescreen extends StatefulWidget {
+  const expernsescreen({Key? key}) : super(key: key);
 
   @override
-  State<UDIncomeScreen> createState() => _UDIncomeScreenState();
+  State<expernsescreen> createState() => _expernsescreenState();
 }
 
-class _UDIncomeScreenState extends State<UDIncomeScreen> {
-  HomeController homeController = Get.put(
-    HomeController(),
+class _expernsescreenState extends State<expernsescreen> {
+  incomController homeController = Get.put(
+    incomController(),
   );
 
   @override
@@ -29,7 +27,7 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
     TextEditingController notec = TextEditingController();
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.lightBlue,
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
@@ -48,7 +46,7 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                           Text(
                             "Date",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
@@ -56,7 +54,6 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                           SizedBox(
                             width: 5,
                           ),
-
                         ],
                       ),
                       SizedBox(
@@ -65,9 +62,9 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                       Container(
                         height: 61,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(0),
                           border: Border.all(
-                            color: Colors.white,
+                            color: Colors.black,
                             width: 1,
                           ),
                         ),
@@ -95,7 +92,7 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                                             TextButtonThemeData(
                                               style: TextButton.styleFrom(
                                                 foregroundColor: Colors
-                                                    .white, // button text color
+                                                    .black, // button text color
                                               ),
                                             ),
                                           ),
@@ -132,7 +129,7 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                           Text(
                             "Amount",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
@@ -147,7 +144,7 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                       ),
                       TextField(
                         controller: amountc,
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.black,
                         keyboardType: TextInputType.number,
                         style: TextStyle(
                           color: Colors.white,
@@ -156,20 +153,12 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                         ),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          prefixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.currency_rupee,
-                              color: Colors.white,
-                              size: 25,
-                            ),
+                            borderRadius: BorderRadius.circular(0),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide(
-                              color: Colors.white,
+                              color: Colors.black,
                               width: 1,
                             ),
                           ),
@@ -179,9 +168,9 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                             fontWeight: FontWeight.w500,
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide(
-                              color: Colors.white,
+                              color: Colors.black,
                               width: 1,
                             ),
                           ),
@@ -191,7 +180,7 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 5,
                 ),
                 Padding(
                   padding: EdgeInsets.all(20),
@@ -203,7 +192,7 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                           Text(
                             "Category",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
@@ -218,8 +207,8 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                       ),
                       Obx(
                             () => DropdownButtonFormField(
-                          value: homeController.selectedICategory.value,
-                          items: homeController.iCategoryList
+                          value: homeController.selectedECategory.value,
+                          items: homeController.eCategoryList
                               .map(
                                 (element) => DropdownMenuItem(
                               child: Text(element),
@@ -228,35 +217,31 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                           )
                               .toList(),
                           onChanged: (value) {
-                            homeController.selectedICategory.value = value!;
+                            homeController.selectedECategory.value = value!;
                           },
-                          icon: Icon(
-                            Icons.keyboard_arrow_down_outlined,
-                            color: Colors.white,
-                          ),
                           dropdownColor: Colors.grey.shade300,
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(0),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 1,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(0),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 1,
                               ),
                             ),
                           ),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
                           ),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(0),
                         ),
                       ),
                       SizedBox(
@@ -267,7 +252,7 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                           Text(
                             " Payment ",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
@@ -282,8 +267,8 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                       ),
                       Obx(
                             () => DropdownButtonFormField(
-                          value: homeController.selectedIPaymentMethod.value,
-                          items: homeController.iPaymentMethodList
+                          value: homeController.selectedEPaymentMethod.value,
+                          items: homeController.ePaymentMethodList
                               .map(
                                 (element) => DropdownMenuItem(
                               child: Text(element),
@@ -292,32 +277,28 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                           )
                               .toList(),
                           onChanged: (value) {
-                            homeController.selectedIPaymentMethod.value =
+                            homeController.selectedEPaymentMethod.value =
                             value!;
                           },
-                          icon: Icon(
-                            Icons.keyboard_arrow_down_outlined,
-                            color: Colors.white,
-                          ),
                           dropdownColor: Colors.grey.shade300,
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(0),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 1,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(
-                                color: Colors.white,
+                                color: Colors.black,
                                 width: 1,
                               ),
                             ),
                           ),
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
                           ),
@@ -328,9 +309,9 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                         height: 20,
                       ),
                       Text(
-                        "Note",
+                        "Note...",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
@@ -340,9 +321,9 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                       ),
                       TextField(
                         controller: notec,
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
                         ),
@@ -359,21 +340,21 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide(
-                              color: Colors.white,
+                              color: Colors.black,
                               width: 1,
                             ),
                           ),
-                          hintText: "Note",
+                          hintText: "",
                           hintStyle: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black54,
                             fontWeight: FontWeight.w500,
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(
-                              color: Colors.white,
+                              color: Colors.black,
                               width: 1,
                             ),
                           ),
@@ -387,11 +368,11 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    var c = homeController.selectedICategory.value;
-                    var p = homeController.selectedIPaymentMethod.value;
+                    var c = homeController.selectedECategory.value;
+                    var p = homeController.selectedEPaymentMethod.value;
                     var d =
                         "${homeController.dateFind!.value.day}/0${homeController.dateFind!.value.month}/${homeController.dateFind!.value.year}";
-                    var status = 0;
+                    var status = 1;
                     DbHelper dbHelper = DbHelper();
                     dbHelper.insertData(
                       amount: amountc.text,
@@ -402,23 +383,18 @@ class _UDIncomeScreenState extends State<UDIncomeScreen> {
                       status: status,
                     );
                     homeController.readData();
+                    homeController.calculateExpenseBalance();
+                    // homeController.calculateTotalBalance();
+                    homeController.resetECategory();
+                    homeController.resetEPaymentMethod();
                     Get.back();
                   },
-                  child: Container(
-                    height: 60,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Update",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 23,
-                      ),
+                  child: Text(
+                    "Expense",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 23,
                     ),
                   ),
                 ),
