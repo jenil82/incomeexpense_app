@@ -378,7 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ['status'] ==
                                             1
                                             ? Text(
-                                          "₹ ${homeController.dataList.value[index]['amount']} INR",
+                                          "₹ ${homeController.dataList.value[index]['amount']} ",
                                           style: TextStyle(
                                             color: Colors.red,
                                             fontWeight: FontWeight.bold,
@@ -386,7 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         )
                                             : Text(
-                                          "₹ ${homeController.dataList.value[index]['amount']} INR",
+                                          "₹ ${homeController.dataList.value[index]['amount']} ",
                                           style: TextStyle(
                                             color: Colors.green,
                                             fontWeight: FontWeight.bold,
