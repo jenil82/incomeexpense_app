@@ -43,18 +43,6 @@ class _expnsescreenState extends State<expnsescreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          " Date",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
                     SizedBox(
                       height: 10,
                     ),
@@ -195,7 +183,7 @@ class _expnsescreenState extends State<expnsescreen> {
                         onChanged: (value) {
                           homeController.selectedECategory.value = value!;
                         },
-                        dropdownColor: Colors.black,
+                        dropdownColor: Colors.white,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -245,7 +233,7 @@ class _expnsescreenState extends State<expnsescreen> {
                           homeController.selectedEPaymentMethod.value =
                           value!;
                         },
-                        dropdownColor: Colors.black,
+                        dropdownColor: Colors.white,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -267,15 +255,9 @@ class _expnsescreenState extends State<expnsescreen> {
                         ),
                       ),
                     ),
-                    Text(
-                      "Note",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    SizedBox(
+                      height: 10,
                     ),
-
                     TextField(
                       controller: notec,
                       cursorColor: Colors.black,

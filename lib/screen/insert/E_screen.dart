@@ -183,7 +183,7 @@ class _i_screenState extends State<i_screen> {
                         onChanged: (value) {
                           homeController.selectedICategory.value = value!;
                         },
-                        dropdownColor: Colors.black,
+                        dropdownColor: Colors.white,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -234,7 +234,7 @@ class _i_screenState extends State<i_screen> {
                           homeController.selectedIPaymentMethod.value =
                           value!;
                         },
-                        dropdownColor: Colors.black,
+                        dropdownColor: Colors.white,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -258,10 +258,6 @@ class _i_screenState extends State<i_screen> {
                     Column(
                       children: [
                         SizedBox(height: 15,),
-                        Row(
-                          children: [
-                          ],
-                        ),
                       ],
                     ),
                     TextField(

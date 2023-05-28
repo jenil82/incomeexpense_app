@@ -170,7 +170,7 @@ class _expernsescreenState extends State<expernsescreen> {
                         onChanged: (value) {
                           homeController.selectedECategory.value = value!;
                         },
-                        dropdownColor: Colors.black,
+                        dropdownColor: Colors.white,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -226,7 +226,7 @@ class _expernsescreenState extends State<expernsescreen> {
                         onChanged: (value) {
                           homeController.selectedEPaymentMethod.value = value!;
                         },
-                        dropdownColor: Colors.black,
+                        dropdownColor: Colors.white,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(

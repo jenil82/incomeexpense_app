@@ -185,7 +185,7 @@ class _income_screenState extends State<income_screen> {
                           Icons.keyboard_arrow_down_outlined,
                           color: Colors.black,
                         ),
-                        dropdownColor: Colors.black,
+                        dropdownColor: Colors.white,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -244,7 +244,7 @@ class _income_screenState extends State<income_screen> {
                           Icons.keyboard_arrow_down_outlined,
                           color: Colors.black,
                         ),
-                        dropdownColor: Colors.black,
+                        dropdownColor: Colors.white,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
