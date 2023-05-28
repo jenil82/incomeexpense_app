@@ -31,7 +31,7 @@ class _expnsescreenState extends State<expnsescreen> {
     );
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Colors.blueGrey.shade200,
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
@@ -40,328 +40,279 @@ class _expnsescreenState extends State<expnsescreen> {
             ),
             child: Column(
               children: [
-                Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          " Date",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: 61,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(0),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
                         children: [
-                          Text(
-                            " Date",
-                            style: TextStyle(
+                          IconButton(
+                            onPressed: () async {
+                              homeController.dateFind!.value =
+                                  await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(3000),
+                                    builder: (context, child) {
+                                      return Theme(
+                                        data:
+                                        Theme.of(context).copyWith(
+                                          colorScheme:
+                                          ColorScheme.light(
+                                            primary: Colors.blueGrey.shade200,
+                                            onPrimary: Colors.black,
+                                            onSurface: Colors.blueGrey.shade200,
+                                          ),
+                                          textButtonTheme:
+                                          TextButtonThemeData(
+                                            style: TextButton.styleFrom(
+                                              foregroundColor: Colors
+                                                  .black, // button text color
+                                            ),
+                                          ),
+                                        ),
+                                        child: child!,
+                                      );
+                                    },
+                                  ) ??
+                                      homeController.dateFind!.value;
+                            },
+                            icon: Icon(
+                              Icons.calendar_month,
                               color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
+                              size: 28,
                             ),
                           ),
-                          SizedBox(
-                            width: 5,
+                          Obx(
+                                () => Text(
+                              "${homeController.oldDataList.value[0]['date']}",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                              ),
+                            ),
                           ),
-
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
+                    ),
+
+                    Row(
+                      children: [
+                        Text(
+                          "Amount",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    TextField(
+                      controller: amountc,
+                      cursorColor: Colors.black,
+                      keyboardType: TextInputType.number,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
                       ),
-                      Container(
-                        height: 61,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(0),
-                          border: Border.all(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
                             color: Colors.black,
                             width: 1,
                           ),
                         ),
-                        child: Row(
-                          children: [
-                            IconButton(
-                              onPressed: () async {
-                                homeController.dateFind!.value =
-                                    await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(2000),
-                                      lastDate: DateTime(3000),
-                                      builder: (context, child) {
-                                        return Theme(
-                                          data:
-                                          Theme.of(context).copyWith(
-                                            colorScheme:
-                                            ColorScheme.light(
-                                              primary: Colors.black,
-                                              onPrimary: Colors.white,
-                                              onSurface: Colors.black,
-                                            ),
-                                            textButtonTheme:
-                                            TextButtonThemeData(
-                                              style: TextButton.styleFrom(
-                                                foregroundColor: Colors
-                                                    .black, // button text color
-                                              ),
-                                            ),
-                                          ),
-                                          child: child!,
-                                        );
-                                      },
-                                    ) ??
-                                        homeController.dateFind!.value;
-                              },
-                              icon: Icon(
-                                Icons.calendar_month,
-                                color: Colors.white,
-                                size: 28,
-                              ),
-                            ),
-                            Obx(
-                                  () => Text(
-                                "${homeController.oldDataList.value[0]['date']}",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Amount",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
-                        controller: amountc,
-                        cursorColor: Colors.black,
-                        keyboardType: TextInputType.number,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                        ),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0),
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0),
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 1,
-                            ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 1,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 15,
                 ),
-                Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Category",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Obx(
-                            () => DropdownButtonFormField(
-                          value: homeController.selectedECategory.value,
-                          items: homeController.eCategoryList
-                              .map(
-                                (element) => DropdownMenuItem(
-                              child: Text(element),
-                              value: element,
-                            ),
-                          )
-                              .toList(),
-                          onChanged: (value) {
-                            homeController.selectedECategory.value = value!;
-                          },
-                          dropdownColor: Colors.cyan,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                          ),
-                          borderRadius: BorderRadius.circular(0),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Payment",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Obx(
-                            () => DropdownButtonFormField(
-                          value: homeController.selectedEPaymentMethod.value,
-                          items: homeController.ePaymentMethodList
-                              .map(
-                                (element) => DropdownMenuItem(
-                              child: Text(element),
-                              value: element,
-                            ),
-                          )
-                              .toList(),
-                          onChanged: (value) {
-                            homeController.selectedEPaymentMethod.value =
-                            value!;
-                          },
-
-                          dropdownColor: Colors.grey.shade300,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(0),
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(0),
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                              ),
-                            ),
-                          ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "Category",
                           style: TextStyle(
                             color: Colors.black,
+                            fontSize: 20,
                             fontWeight: FontWeight.w500,
-                            fontSize: 18,
                           ),
-                          borderRadius: BorderRadius.circular(0),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "Note",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
-                        controller: notec,
-                        cursorColor: Colors.black,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                        ),
+                      ],
+                    ),
+
+                    Obx(
+                          () => DropdownButtonFormField(
+                        value: homeController.selectedECategory.value,
+                        items: homeController.eCategoryList
+                            .map(
+                              (element) => DropdownMenuItem(
+                            child: Text(element),
+                            value: element,
+                          ),
+                        )
+                            .toList(),
+                        onChanged: (value) {
+                          homeController.selectedECategory.value = value!;
+                        },
+                        dropdownColor: Colors.black,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0),
-                          ),
-                          prefixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.description,
-                              color: Colors.white,
-                              size: 28,
-                            ),
-                          ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide(
                               color: Colors.black,
                               width: 1,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide(
                               color: Colors.black,
                               width: 1,
                             ),
                           ),
                         ),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Payment",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    Obx(
+                          () => DropdownButtonFormField(
+                        value: homeController.selectedEPaymentMethod.value,
+                        items: homeController.ePaymentMethodList
+                            .map(
+                              (element) => DropdownMenuItem(
+                            child: Text(element),
+                            value: element,
+                          ),
+                        )
+                            .toList(),
+                        onChanged: (value) {
+                          homeController.selectedEPaymentMethod.value =
+                          value!;
+                        },
+                        dropdownColor: Colors.black,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "Note",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+
+                    TextField(
+                      controller: notec,
+                      cursorColor: Colors.black,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      ),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                        ),
+                        prefixIcon: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.note_alt_rounded,
+                            color: Colors.black,
+                            size: 28,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 1,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 25,
                 ),
                 InkWell(
                   onTap: () {
@@ -382,22 +333,28 @@ class _expnsescreenState extends State<expnsescreen> {
                     );
                     homeController.readData();
                     homeController.calculateExpenseBalance();
-                    // homeController.calculateTotalBalance();
                     homeController.resetECategory();
                     homeController.resetEPaymentMethod();
                     Get.back();
                   },
-                  child: Text(
-                    "Update",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 23,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 25,
+                      width: 90,
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                      child: Text(
+                        "Update",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 23,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 15,
                 ),
               ],
             ),

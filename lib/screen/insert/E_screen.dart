@@ -29,7 +29,7 @@ class _i_screenState extends State<i_screen> {
     TextEditingController notec = TextEditingController();
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.lightBlue,
+        backgroundColor: Colors.blueGrey.shade200,
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
@@ -38,337 +38,267 @@ class _i_screenState extends State<i_screen> {
             ),
             child: Column(
               children: [
-                Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
                         children: [
-                          Text(
-                            " Date",
-                            style: TextStyle(
+                          IconButton(
+                            onPressed: () async {
+                              homeController.dateFind!.value =
+                                  await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(3000),
+                                    builder: (context, child) {
+                                      return Theme(
+                                        data:
+                                        Theme.of(context).copyWith(
+                                          colorScheme:
+                                          ColorScheme.light(
+                                            primary: Colors.blueGrey.shade200,
+                                            onPrimary: Colors.black,
+                                            onSurface: Colors.blueGrey.shade200,
+                                          ),
+                                          textButtonTheme:
+                                          TextButtonThemeData(
+                                            style: TextButton.styleFrom(
+                                              foregroundColor: Colors
+                                                  .black, // button text color
+                                            ),
+                                          ),
+                                        ),
+                                        child: child!,
+                                      );
+                                    },
+                                  ) ??
+                                      homeController.dateFind!.value;
+                            },
+                            icon: Icon(
+                              Icons.calendar_month,
                               color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
+                              size: 18,
                             ),
                           ),
-                          SizedBox(
-                            width: 5,
+                          Obx(
+                                () => Text(
+                              "${homeController.dateFind!.value.day}/0${homeController.dateFind!.value.month}/${homeController.dateFind!.value.year}",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
+                            ),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
+                    ),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 15,),
+                    TextField(
+                      controller: amountc,
+                      cursorColor: Colors.black,
+                      keyboardType: TextInputType.number,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
                       ),
-                      Container(
-                        height: 61,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(0),
-                          border: Border.all(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                        ),
+                        hintText: "Amount",
+                        hintStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
                             color: Colors.black,
                             width: 1,
                           ),
                         ),
-                        child: Row(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),SizedBox(
+                  height: 2,
+                ),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(height: 15,),
+                        Text(
+                          "Category",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                    Obx(
+                          () => DropdownButtonFormField(
+                        value: homeController.selectedICategory.value,
+                        items: homeController.iCategoryList
+                            .map(
+                              (element) => DropdownMenuItem(
+                            child: Text(element),
+                            value: element,
+                          ),
+                        )
+                            .toList(),
+                        onChanged: (value) {
+                          homeController.selectedICategory.value = value!;
+                        },
+                        dropdownColor: Colors.black,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(height: 15,),
+                        Text(
+                          "Payment",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                    Obx(
+                          () => DropdownButtonFormField(
+                        value: homeController.selectedIPaymentMethod.value,
+                        items: homeController.iPaymentMethodList
+                            .map(
+                              (element) => DropdownMenuItem(
+                            child: Text(element),
+                            value: element,
+                          ),
+                        )
+                            .toList(),
+                        onChanged: (value) {
+                          homeController.selectedIPaymentMethod.value =
+                          value!;
+                        },
+                        dropdownColor: Colors.black,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        SizedBox(height: 15,),
+                        Row(
                           children: [
-                            IconButton(
-                              onPressed: () async {
-                                homeController.dateFind!.value =
-                                    await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(2000),
-                                      lastDate: DateTime(3000),
-                                      builder: (context, child) {
-                                        return Theme(
-                                          data:
-                                          Theme.of(context).copyWith(
-                                            colorScheme:
-                                            ColorScheme.light(
-                                              primary: Colors.black,
-                                              onPrimary: Colors.white,
-                                              onSurface: Colors.black,
-                                            ),
-                                            textButtonTheme:
-                                            TextButtonThemeData(
-                                              style: TextButton.styleFrom(
-                                                foregroundColor: Colors
-                                                    .black, // button text color
-                                              ),
-                                            ),
-                                          ),
-                                          child: child!,
-                                        );
-                                      },
-                                    ) ??
-                                        homeController.dateFind!.value;
-                              },
-                              icon: Icon(
-                                Icons.calendar_month,
-                                color: Colors.white,
-                                size: 28,
-                              ),
-                            ),
-                            Obx(
-                                  () => Text(
-                                "${homeController.dateFind!.value.day}/0${homeController.dateFind!.value.month}/${homeController.dateFind!.value.year}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
                           ],
                         ),
+                      ],
+                    ),
+                    TextField(
+                      controller: notec,
+                      cursorColor: Colors.black,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            " Amount",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
-                        controller: amountc,
-                        cursorColor: Colors.black,
-                        keyboardType: TextInputType.number,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
                         ),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          prefixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.currency_rupee,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0),
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                          ),
-                          hintText: "",
-                          hintStyle: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Category",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Obx(
-                            () => DropdownButtonFormField(
-                          value: homeController.selectedICategory.value,
-                          items: homeController.iCategoryList
-                              .map(
-                                (element) => DropdownMenuItem(
-                              child: Text(element),
-                              value: element,
-                            ),
-                          )
-                              .toList(),
-                          onChanged: (value) {
-                            homeController.selectedICategory.value = value!;
-                          },
-                          dropdownColor: Colors.grey.shade300,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(0),
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(0),
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          style: TextStyle(
+                        prefixIcon: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.note_alt_rounded,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
+                            size: 28,
                           ),
-                          borderRadius: BorderRadius.circular(0),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Payment",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Obx(
-                            () => DropdownButtonFormField(
-                          value: homeController.selectedIPaymentMethod.value,
-                          items: homeController.iPaymentMethodList
-                              .map(
-                                (element) => DropdownMenuItem(
-                              child: Text(element),
-                              value: element,
-                            ),
-                          )
-                              .toList(),
-                          onChanged: (value) {
-                            homeController.selectedIPaymentMethod.value =
-                            value!;
-                          },
-                          dropdownColor: Colors.grey.shade300,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(0),
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(0),
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                                width: 1,
-                              ),
-                            ),
-                          ),
-                          style: TextStyle(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
+                            width: 1,
                           ),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "Note",
-                        style: TextStyle(
+                        ), hintStyle: TextStyle(
                           color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
-                        controller: notec,
-                        cursorColor: Colors.black,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                        ),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0),
-                          ),
-                          prefixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.description,
-                              color: Colors.white,
-                              size: 28,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0),
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                          ),
-                          hintText: "",
-                          hintStyle: TextStyle(
-                            color: Colors.black54,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(0),
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                              width: 1,
-                            ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                            width: 1,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 15,
@@ -391,18 +321,25 @@ class _i_screenState extends State<i_screen> {
                     );
                     homeController.readData();
                     homeController.calculateIncomeBalance();
-                    // homeController.calculateTotalBalance();
                     homeController.resetICategory();
                     homeController.resetDate();
                     homeController.resetIPaymentMethod();
                     Get.back();
                   },
-                  child: Text(
-                    " Income",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 23,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 25,
+                      width: 90,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(2),color: Colors.black),
+                      child: Text(
+                        " Income",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 23,
+                        ),
+                      ),
                     ),
                   ),
                 ),

@@ -24,7 +24,8 @@ class _abbarScreenState extends State<abbarScreen> {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.black,
+            centerTitle: true,
+            backgroundColor: Colors.blueGrey.shade200,
             title: Obx(
                   () => Text(
                 homeController.udIndex.value == 0
@@ -33,6 +34,7 @@ class _abbarScreenState extends State<abbarScreen> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
+                  color: Colors.black
                 ),
               ),
             ),
@@ -51,13 +53,14 @@ class _abbarScreenState extends State<abbarScreen> {
                   },
                   child: Icon(
                     Icons.delete,
-                    color: Colors.red,
+                    color: Colors.black,
+                    size: 25,
                   ),
                 ),
               ),
             ],
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.blueGrey.shade200,
           body: Column(
             children: [
               SizedBox(
@@ -71,19 +74,17 @@ class _abbarScreenState extends State<abbarScreen> {
                   left: 20,
                   right: 20,
                 ),
-                labelColor: Colors.white,
+                labelColor: Colors.black,
                 labelStyle: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 20,
                 ),
-                unselectedLabelColor: Colors.black,
+                unselectedLabelColor: Colors.white,
                 unselectedLabelStyle: TextStyle(
-                  fontWeight: FontWeight.w500,
                   fontSize: 20,
                 ),
                 indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.black,
+                  color: Colors.white30,
                 ),
                 indicatorColor: Colors.black,
                 tabs: [
@@ -95,10 +96,9 @@ class _abbarScreenState extends State<abbarScreen> {
                         height: 60,
                         width: 180,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: Colors.black,
-                            width: 2,
+                            width: 1,
                           ),
                         ),
                         alignment: Alignment.center,
@@ -114,10 +114,9 @@ class _abbarScreenState extends State<abbarScreen> {
                         height: 60,
                         width: 180,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.black,
-                            width: 2,
+                            color: Colors.black ,
+                            width: 1,
                           ),
                         ),
                         alignment: Alignment.center,

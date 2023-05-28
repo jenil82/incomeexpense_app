@@ -25,7 +25,7 @@ class _ITabbarScreenState extends State<ITabbarScreen> {
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            backgroundColor: Colors.lightBlue,
+            backgroundColor: Colors.blueGrey.shade200,
             title: Obx(
                   () => Text(
                 homeController.iIndex.value == 0
@@ -34,11 +34,12 @@ class _ITabbarScreenState extends State<ITabbarScreen> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
+                  color: Colors.black
                 ),
               ),
             ),
           ),
-          backgroundColor: Colors.lightBlue,
+          backgroundColor: Colors.blueGrey.shade200,
           body: Column(
             children: [
               SizedBox(
@@ -59,12 +60,10 @@ class _ITabbarScreenState extends State<ITabbarScreen> {
                 ),
                 unselectedLabelColor: Colors.black,
                 unselectedLabelStyle: TextStyle(
-                  fontWeight: FontWeight.w500,
                   fontSize: 20,
                 ),
                 indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(0),
-                  color: Colors.lightBlue,
+                  color: Colors.white30,
                 ),
                 indicatorColor: Colors.black,
                 tabs: [
@@ -76,9 +75,8 @@ class _ITabbarScreenState extends State<ITabbarScreen> {
                         height: 60,
                         width: 180,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(0),
                           border: Border.all(
-                            color: Colors.white,
+                            color: Colors.black,
                             width: 2,
                           ),
                         ),
@@ -95,9 +93,8 @@ class _ITabbarScreenState extends State<ITabbarScreen> {
                         height: 60,
                         width: 180,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(0),
                           border: Border.all(
-                            color: Colors.white,
+                            color: Colors.black,
                             width: 2,
                           ),
                         ),
